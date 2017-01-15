@@ -68,6 +68,11 @@ class TestPoint2Point(unittest.TestCase):
         self.assertTrue(np.allclose(self.gpu_recv.get(), self.cpu_recv),
                         'GPU-CPU Recv mismatch')
 
+    def test_ring_bcast(self):
+        self.comm.Bcast(self.gpu_send, root=1)
+        self.comm.Bcast(self.cpu_send, root=1)
+        self.assertTrue(np.allclose(self.gpu_recv.get(), self.cpu_recv),
+                        'GPU-CPU Recv mismatch')
 
 if __name__ == '__main__':
     unittest.main()

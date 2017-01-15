@@ -113,20 +113,22 @@ class GPUComm(object):
         self.ring_bcast(buf, root)
 
     def ring_bcast(self, buf, root=0):
-        root_rank = (self.rank + root) % self.size
+        root_rank = (self.size + self.rank - root) % self.size
         gpu_buff = self.buff(buf)
         num_levels = int(log(self.size, 2))
-        my_level = 1
-        for i in range(1, num_levels+1):
+        my_level = 0
+        for i in range(0, num_levels+1):
             if root_rank % (self.size/pow(2, i)) == 0:
                 my_level = i
                 break
         if root_rank != 0:
             self.comm.Recv(gpu_buff)
 
-        for i in range(my_level+1, num_levels):
-            dest = 0
+        for i in range(my_level+1, num_levels+1):
+            dest = (root_rank + (self.size // pow(2, i))) % self.size
+            logg(root_rank, 'sending to', dest)
             self.comm.Send(gpu_buff, dest=dest)
+        logg('finished')
 
 
     def mesh_bcast(self, buf, root=0):

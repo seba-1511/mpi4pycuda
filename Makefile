@@ -7,7 +7,7 @@ allreduce:
 	mpirun -n 2 python examples/allreduce.py
 
 bcast:
-	mpirun -n 16 python examples/bcast.py
+	mpirun -n 4 python examples/bcast.py
 
 test: p2p collectives
 

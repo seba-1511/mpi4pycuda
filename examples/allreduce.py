@@ -29,8 +29,6 @@ if __name__ == '__main__':
     gpu_comm = GPUComm(comm)
     gpu_comm.Allreduce(send_gpu, recv_gpu)
 
-    sleep(1000)
-
     if rank == 0:
         assert np.allclose(size*send_buff, recv_buff)
         print 'CPU Allreduce working'
