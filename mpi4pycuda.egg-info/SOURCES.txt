@@ -1,7 +1,0 @@
-setup.py
-mpi4pycuda/__init__.py
-mpi4pycuda/gpu_wrapper.py
-mpi4pycuda.egg-info/PKG-INFO
-mpi4pycuda.egg-info/SOURCES.txt
-mpi4pycuda.egg-info/dependency_links.txt
-mpi4pycuda.egg-info/top_level.txt
